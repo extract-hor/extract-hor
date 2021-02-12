@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            
+    </head>
+    <body>   
+
+        
+        
+        <div id="page">TODO write content</div>
+        
+        
+        
+        
+        
+        
+        
+                
+        <script>            
+            
+            
+                    /*
+                     * 
+                     * CONVERSION ICAL
+                     * 
+                     
+                     //Avant traitement
+                     undefined2021-02-03
+                     7:30
+                     8:30
+                     (COMPLEME)
+                     2021-02-03
+                     8:30
+                     12:00
+                     (RESPONSA)
+                    
+                     //Après traitement
+                     BEGIN:VCALENDAR
+                     VERSION:2.0
+                     PRODID:-//hacksw/handcal//NONSGML v1.0//EN
+                     BEGIN:VEVENT
+                     DTSTAMP:20210201T180000Z
+                     DTSTART:20210201T180000
+                     DTEND:20210201T190000
+                     SUMMARY:Titre de l'événement
+                     DESCRIPTION: Description complète de l'événement
+                     END:VEVENT
+                     END:VCALENDAR                    
+                    
+                     * 
+                     */            
+            
+            
+	function zeroPadding(n){
+            return (n<=9?n='0'+n:n); 
+         }
+	
+	
+	function dtstamp(){
+            var d = new Date();
+
+            var a = d.getFullYear();
+
+            var m = zeroPadding(d.getMonth());
+
+            var j = zeroPadding(d.getDay());
+
+            var h = zeroPadding(d.getHours());
+
+            var n = zeroPadding(d.getMinutes());
+
+            var s = zeroPadding(d.getSeconds());
+
+            var dtstamp = "DTSTAMP:"+a+m+j+"T"+h+n+s;   
+            
+            return dtstamp;
+            
+        }
+	            
+            
+            
+        function getDate(d)
+        {
+            var day, month, year;
+
+            result = d.match("[0-9]{2}([\-/ \.])[0-9]{2}[\-/ \.][0-9]{4}");
+            if(null != result) {
+                dateSplitted = result[0].split(result[1]);
+                day = dateSplitted[0];
+                month = dateSplitted[1];
+                year = dateSplitted[2];
+            }
+            result = d.match("[0-9]{4}([\-/ \.])[0-9]{2}[\-/ \.][0-9]{2}");
+            if(null != result) {
+                dateSplitted = result[0].split(result[1]);
+                day = dateSplitted[2];
+                month = dateSplitted[1];
+                year = dateSplitted[0];
+            }
+
+            if(month>12) {
+                aux = day;
+                day = month;
+                month = aux;
+            }
+
+            return year + month + day;
+        }
+
+
+
+        function vcalstart(){
+            var ical ="BEGIN:VCALENDAR\n";
+            ical +="VERSION:2.0\n";
+            ical +="PRODID:-//hacksw/handcal//NONSGML v1.0//EN\n";
+            return ical;
+        }
+
+
+        function vevent(ical,dtstart,dtend,summary,description,location){
+            ical += 'BEGIN:VEVENT\n';
+            ical += dtstamp();
+            ical += dtstart(dtstart);
+            ical += dtend(dtend);
+            ical += summary(summary);
+            ical += description(description);
+            ical += location(location);
+            ical += 'END:VEVENT\n';
+            return ical;
+        }
+            
+            
+        var tampon = 'undefined2021-01-25,7:30,8:00,(COMPLEME),2021-01-25,8:00,11:15,LOG-1,LOG 1,2021-01-25,11:15,12:15,(REPAS),2021-01-25,12:15,15:30,LOG-1,LOG 1,2021-01-25,15:30,16:00,(COMPLEME),2021-01-26,7:30,8:00,(COMPLEME),2021-01-26,8:00,11:15,LOG-2,LOG 2,2021-01-26,11:15,12:15,(REPAS),2021-01-26,12:15,15:30,(COMPLEME),2021-01-26,15:30,16:00,(COMPLEME),2021-01-27,7:30,8:00,(COMPLEME),2021-01-27,8:00,11:15,(RESPONSA),2021-01-27,11:15,12:15,(REPAS),2021-01-27,12:15,15:30,LOG-1,LOG 1,2021-01-27,15:30,16:00,(COMPLEME),2021-01-28,7:30,8:00,(COMPLEME),2021-01-28,8:00,11:15,EXA-SI (COURS),A-122,2021-01-28,11:15,12:15,(REPAS),2021-01-28,12:15,15:30,EXA-SI (COURS),A-122,2021-01-28,15:30,16:00,(COMPLEME),2021-01-29,8:00,11:15,(COMPLEME),2021-01-29,11:15,12:15,(REPAS),2021-01-29,13:00,15:30,(COMPLEME),2021-01-29,15:30,16:00,(COMPLEME),';
+               
+                
+        document.getElementById('page').innerHTML = tampon;        
+        
+        var nbligne = response.message.split(',').length;
+        
+        tampon = tampon.split(',');
+                
+        var ical = vcalstart();  
+        
+        i=0;
+        while(i>nbligne){                        
+            var datedebut = getDate(tampon[i++]);              
+            var heuredebut = tampon[i++];
+            var heurefin = tampon[i++];
+            var titre = tampon[i++];
+            var chkNext = getDate(tampon[i++]);
+            var local = (chkNext?isNaN(chkNext):chkNext);
+            
+            
+            if(!isNaN(d)){
+                ical+=vevent(d);
+                i++;
+                }
+            
+            
+            
+            }
+            
+            
+            
+        </script>        
+                
+        
+    </body>
+</html>

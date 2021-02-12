@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Options</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <img src='../icons/horaire-128.png'/>            
+            <h1>Extract-Hor</h1>
+        </div>
+        
+        <div>
+            <h3>Attention !</h3>
+            <p>    
+                <img style="float: right;width: 200px" src='../images/config-tosca.png'/> 
+                Assurez-vous de bien configurer l'affichage hebdomadaire de l'horaire dans le système 
+                TOSCA.net sans fragmentation quotidienne.  Consultez <a href="../images/config-tosca.png">l'image des options</a> de configuration de l'horaire
+                enseignant pour avoir plus de détails.
+            </p>
+        
+        </div>
+        <p>Procédure pour obtenir les données de l'horaire en format iCal et télécharger le fichier localement :
+        <ol>
+            <li>Sélectionner l'onglet horaire de l'enseignant dans Tosca.net </li>
+            <li>Appuyer sur le bouton d'extension Extract-Hor</li>
+            <li>Sélectionner l'option Horaire à partir de fenête popup de l'extension</li>
+            <quote>...la zone de texte pour le téléchargement s'affichera automatiquement.</quote>
+
+            <li>Appuyer sur le bouton Téléchargement iCal pour enregisrer le fichier localement</li>            
+            
+        </ol>
+        
+       
+        
+        <textarea id="text-val" cols="60" rows="10">Ce contenu sera remplacé par l'horaire</textarea><br/>
+        <input type="button" id="dwn-btn" value="Téléchargement iCal"/>
+        <script src="options.js"></script>
+        
+        <div>
+            <h4>Finalement !</h4>
+            <p>
+                Après le téléchargement, importer le fichier iCal dans l'agenda Outlook Web ou Google Calendar. 
+                Pour les autres je n'ai pas testé...Bonne chance !
+            </p>        
+        </div>        
+        
+    </body>
+</html>

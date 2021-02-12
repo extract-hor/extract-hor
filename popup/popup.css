@@ -1,0 +1,68 @@
+html, body {
+  width: 100px;
+}
+
+.options {
+  margin: 3% auto;
+  padding: 4px;
+  text-align: center;
+  font-size: 1.5em;
+  background-color: #E5F2F2;
+  cursor: pointer;
+}
+.options:hover {
+  background-color: #CFF2F2;
+}
+
+.horaire {
+  margin: 3% auto;
+  padding: 4px;
+  text-align: center;
+  font-size: 1.5em;
+  background-color: #E5F2F2;
+  cursor: pointer;
+}
+.horaire:hover {
+  background-color: #CFF2F2;
+}
+
+
+.chat {
+  margin: 3% auto;
+  padding: 4px;
+  text-align: center;
+  font-size: 1.5em;
+  background-color: #E5F2F2;
+  cursor: pointer;
+}
+.chat:hover {
+  background-color: #CFF2F2;
+}
+
+
+
+
+.fermer {
+  margin: 3% auto;
+  padding: 4px;
+  text-align: center;
+  font-size: 1.5em;
+  background-color: #FFFFFF;
+  cursor: pointer;
+}
+.fermer:hover {
+  background-color: #ffeeee;
+}
+
+.upload {
+  margin: 3% auto;
+  padding: 4px;
+  text-align: center;
+  font-size: 1.5em;
+  background-color: #FFFFFF;
+  cursor: pointer;
+}
+.upload:hover {
+  background-color: #ffeeee;
+}
+

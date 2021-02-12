@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            
+    </head>
+    <body>   
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+                
+        <script>            
+        const TZ=5;
+            
+        function makeid(length) {
+           var result           = '';
+           var characters       = 'ABCDEF0123456789';
+           var charactersLength = characters.length;
+           for ( var i = 0; i < length; i++ ) {
+              result += characters.charAt(Math.floor(Math.random() * charactersLength));
+           }
+           return result;
+        }  
+    
+    
+    
+    
+	function zeroPadding(n){
+            return (n<=9?n='0'+n:n); 
+         }
+	
+	
+	function dtstamp(){
+            var d = new Date();
+            var a = d.getFullYear();
+            var m = zeroPadding(d.getMonth());
+            var j = zeroPadding(d.getDay());
+            var h = zeroPadding(d.getHours());
+            var n = zeroPadding(d.getMinutes());
+            var s = zeroPadding(d.getSeconds());
+            var dt = +a+m+j+"T"+h+n+s;
+            return dt;            
+        }
+	            
+        /*
+         * 
+         * @param {chaine de texte} d  AAAA-MM-JJ
+         * @returns {String}
+         */    
+            
+        function getDate(d)
+        {
+            var day, month, year;
+            try{
+            result = d.match("[0-9]{2}([\-/ \.])[0-9]{2}[\-/ \.][0-9]{4}");
+            if(null != result) {
+                dateSplitted = result[0].split(result[1]);
+                day = dateSplitted[0];
+                month = dateSplitted[1];
+                year = dateSplitted[2];
+            }
+            result = d.match("[0-9]{4}([\-/ \.])[0-9]{2}[\-/ \.][0-9]{2}");
+            if(null != result) {
+                dateSplitted = result[0].split(result[1]);
+                day = dateSplitted[2];
+                month = dateSplitted[1];
+                year = dateSplitted[0];
+            }
+
+            if(month>12) {
+                aux = day;
+                day = month;
+                month = aux;
+            }
+
+            return year + '-' + month +'-' + day;
+        }
+        catch(err){
+            console.log(err.message);
+        }
+        }
+        
+
+
+        function getHreMinSec(chaine){
+            try{
+            var hh = '';
+            var tmp = chaine.split(':');
+            if(parseInt(tmp[0]) <= 9)
+                hh = '0'+tmp[0];
+            else
+                hh = tmp[0].toString();
+
+            var mm = tmp[1];            
+            return hh + ':' + mm + ':00';
+        }
+        catch(err){
+            console.log(err.message);
+        }
+        }
+        
+
+
+        function vcalstart(){           
+            var ical ="BEGIN:VCALENDAR\n";
+            ical    +="PRODID:-//Google Inc//Google Calendar 70.9054//EN\n";    
+            ical    +="VERSION:2.0\n"; 
+            ical    +="CALSCALE:GREGORIAN\n";
+            ical    +="METHOD:PUBLISH\n";
+            ical    +="X-WR-CALNAME:Horaire-TOSCA.net\n";
+            return ical;
+        }
+        
+        
+        function vcalstop(){
+            return 'END:VCALENDAR\n';
+        }
+
+
+        function vtimezone(){
+            var ical = "X-WR-TIMEZONE:America/Toronto\n"
+            return ical;
+        }
+
+
+/*
+ * 
+ */
+
+        function vevent(debut,fin,titre,description,local){
+            var vevent  = '';
+            var datedebut = '';
+            var heuredebut = '';
+            var heurefin = '';
+            var a = debut.getFullYear().toString();
+            var m = zeroPadding(debut.getMonth()+1).toString()
+            var j = zeroPadding(debut.getDate()).toString();
+            var h = zeroPadding(debut.getHours()).toString();
+            var n = zeroPadding(debut.getMinutes()).toString();
+            var s = zeroPadding(debut.getSeconds()).toString();
+            var hf = zeroPadding(fin.getHours()).toString();
+            var nf = zeroPadding(fin.getMinutes()).toString();
+            var sf = zeroPadding(fin.getSeconds()).toString();            
+            datedebut = a+m+j;
+            heuredebut = h+n+s;
+            heurefin = hf+nf+sf;
+
+            vevent += '\n\n\nBEGIN:VEVENT\n';
+            vevent += 'DTSTART:'+datedebut+'T'+heuredebut+'Z\n';
+            vevent += 'DTEND:'+datedebut+'T'+heurefin+'Z\n';            
+            vevent += 'DSTAMP:' +dtstamp()+'Z\n';
+            vevent += 'UID:'+makeid(16)+'@localhost.com\n';            
+            vevent += 'CLASS:PUBLIC\n';
+            vevent += 'CREATED:'+dtstamp()+'Z\n';
+            vevent += 'DESCRIPTION:'+description+'\n';
+            vevent += 'LAST-MODIFIED:'+dtstamp()+'Z\n';
+            vevent += 'LOCATION:'+local+'\n';            
+            vevent += 'SEQUENCE:0\n';
+            vevent += 'STATUS:CONFIRMED\n';
+            vevent += 'SUMMARY:'+titre+'\n';            
+            vevent += 'TRANSP:OPAQUE\n';            
+            vevent += 'X-MICROSOFT-CDO-ALLDAYEVENT:FALSE\n'
+            vevent += 'X-MICROSOFT-CDO-APPT-SEQUENCE:0\n'
+            vevent += 'X-MICROSOFT-CDO-BUSYSTATUS:BUSY\n'
+            vevent += 'X-MICROSOFT-CDO-IMPORTANCE:1\n'
+            vevent += 'X-MICROSOFT-CDO-INSTTYPE:0\n'
+            vevent += 'X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY\n'
+            vevent += 'X-MICROSOFT-DISALLOW-COUNTER:FALSE\n'
+            vevent += 'X-MICROSOFT-DONOTFORWARDMEETING:FALSE\n'
+            vevent += 'END:VEVENT\n';
+            return vevent;
+        }
+            
+            
+            
+            
+            
+        /*
+         * 
+         * 
+         * ROUTINE PRINCIPALE CRÉATION DU CALENDRIER ICS
+         * 
+         * 
+         */    
+            
+            
+            
+        var tampon = 'undefined2021-01-25,7:30,8:00,(COMPLEME),2021-01-25,8:00,11:15,LOG-1,LOG 1,2021-01-25,11:15,12:15,(REPAS),2021-01-25,12:15,15:30,LOG-1,LOG 1,2021-01-25,15:30,16:00,(COMPLEME),2021-01-26,7:30,8:00,(COMPLEME),2021-01-26,8:00,11:15,LOG-2,LOG 2,2021-01-26,11:15,12:15,(REPAS),2021-01-26,12:15,15:30,(COMPLEME),2021-01-26,15:30,16:00,(COMPLEME),2021-01-27,7:30,8:00,(COMPLEME),2021-01-27,8:00,11:15,(RESPONSA),2021-01-27,11:15,12:15,(REPAS),2021-01-27,12:15,15:30,LOG-1,LOG 1,2021-01-27,15:30,16:00,(COMPLEME),2021-01-28,7:30,8:00,(COMPLEME),2021-01-28,8:00,11:15,EXA-SI (COURS),A-122,2021-01-28,11:15,12:15,(REPAS),2021-01-28,12:15,15:30,EXA-SI (COURS),A-122,2021-01-28,15:30,16:00,(COMPLEME),2021-01-29,8:00,11:15,(COMPLEME),2021-01-29,11:15,12:15,(REPAS),2021-01-29,13:00,15:30,(COMPLEME),2021-01-29,15:30,16:00,(COMPLEME),2021-01-29,16:00,16:30,(TNP),';
+        
+        var nbligne = tampon.split(',').length;        
+        tampon = tampon.split(',');                
+        var ical = "<pre>";
+        ical += vcalstart();       
+        ical += vtimezone();
+                           
+
+     
+       i=0;
+       do{  
+                    //Lire un élément du tableau
+                    var item = tampon[i];
+                    var regDate = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
+                    var regHeure = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+                    var regChaine = /^[a-zA-Z0-9 ]*$/
+                    //Vérifier le type
+                    //  date
+                    if(item.match(regDate)){
+                        //console.log('C\'est une date !');
+                    }
+                    //  heure ou de fin
+                    else if(item.match(regHeure)){
+                        //console.log('C\'est une heure !');
+                    }
+                    else if(item.match("/^[a-zA-Z0-9 ]*$/")){
+                        //console.log('C\'est une chaine de texte !');
+                    }
+                   
+                    
+
+                    var datedebut = getDate(tampon[i]);                    
+                    i++;
+                    var heuredebut = getHreMinSec(tampon[i]);
+                    i++;
+                    var dttmp = Date.parse(datedebut+' '+heuredebut)
+                    var dtdebut = new Date(dttmp);  
+                    dtdebut  = dtdebut.setHours(dtdebut.getHours()+TZ);
+                    dtdebut = new Date(dtdebut);
+
+                    var heurefin = getHreMinSec(tampon[i]);
+                    i++;
+                    var dtfin = new Date(datedebut+' '+heurefin);
+                    dtfin  = dtfin.setHours(dtfin.getHours()+TZ);
+                    dtfin = new Date(dtfin);
+                   
+                    var titre = tampon[i];   
+                    i++;
+                    
+                    var local = (tampon[i]!='undefined'?tampon[i]:'');
+                    i++;
+                    
+                    var result = local.match(regDate);
+                    if(null != result) {
+                        local='';
+                        i--;
+                    }
+                   
+                        
+                    var description = titre + '\n' + local + '\n';
+                    
+                    ical += vevent(dtdebut,dtfin,titre,description,local);
+        }while(nbligne-4 > i);
+        ical += vcalstop();
+        
+        document.write(ical);
+        
+        </script>        
+                
+        
+    </body>
+</html>

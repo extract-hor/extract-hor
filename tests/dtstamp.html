@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+	
+	<script>
+	
+	function zeroPadding(n){
+            return (n<=9?n='0'+n:n); 
+         }
+	
+	
+	function dtstapm(){
+            var d = new Date();
+
+            var a = d.getFullYear();
+
+            var m = zeroPadding(d.getMonth());
+
+            var j = zeroPadding(d.getDay());
+
+            var h = zeroPadding(d.getHours());
+
+            var n = zeroPadding(d.getMinutes());
+
+            var s = zeroPadding(d.getSeconds());
+
+            var dtstamp = "DTSTAMP:"+a+m+j+"T"+h+n+s;   
+            
+            return dtstamp;
+            
+        }
+	
+	
+
+        
+        
+
+	this.document.write(dtstamp());
+        
+	
+	</script>
+	
+  </head>
+
+  <body>
+  
+    
+  </body>
+
+</html>
