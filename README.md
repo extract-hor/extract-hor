@@ -1,4 +1,3 @@
-<meta name="google-site-verification" content="7zFp7BA5mbGIFpWr2w6InYqohQNXF0RlkVrTkf3_E-g" />
 # extract-hor
  Projet extension Chrome pour l'extracte de l'horaire enseignant vers iCal
 
